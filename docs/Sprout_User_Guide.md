@@ -1,23 +1,25 @@
 # Zcash 1.0 "Sprout" Guide
 
+Translations available [here](https://github.com/zcash/zcash-docs).
+
 Welcome! This guide is intended to get you running on the official Zcash network. Zcash currently has some limitations: it only officially supports Linux, requires 64-bit, and in some situations requires heavy memory and CPU consumption to create transactions.
 
 Please let us know if you run into snags. We plan to make it less memory/CPU intensive and support more architectures and operating systems in the future.
 
 ## Upgrading?
 
-If you were playing with our alpha/beta/rc testnets, ensure that your `~/.zcash/zcash.conf` does not contain `testnet=1` or `addnode=testnet.z.cash`. If you're on a Debian-based distribution, you can follow the [Debian instructions](https://github.com/zcash/zcash/wiki/Debian-binary-packages) to install zcash on your system. Otherwise, you can update your local snapshot of our code:
+If you're on a Debian-based distribution, you can follow the [Debian instructions](https://github.com/zcash/zcash/wiki/Debian-binary-packages) to install zcash on your system. Otherwise, you can update your local snapshot of our code:
 
 ```
 git fetch origin
-git checkout v1.0.8-1
+git checkout v1.0.14
 ./zcutil/fetch-params.sh
 ./zcutil/build.sh --disable-rust -j$(nproc)
 ```
 
 Note: if you don't have `nproc`, then substitute the number of cores on your system. If the build runs out of memory, try again without the `-j` argument, i.e. just `./zcutil/build.sh --disable-rust`.
 
-If you are upgrading from testnet, make sure that your ``~/.zcash`` directory contains only ``zcash.conf`` to start with.
+If you are upgrading from testnet, make sure that your ``~/.zcash`` directory contains only ``zcash.conf`` to start with, and that your `~/.zcash/zcash.conf` does not contain `testnet=1` or `addnode=testnet.z.cash`. 
 
 If the build fails, move aside your ``zcash`` directory and try again by following the instructions in the [Compile it yourself](#or-compile-it-yourself) section below.
 
@@ -30,12 +32,13 @@ Zcash supports two different kinds of addresses, a _z-addr_ (which begins with a
 Currently, you will need:
 
 * Linux (easiest with a Debian-based distribution)
-* 64-bit
-* 4GB of free memory
+* 64-bit processor and OS
+* 3 GB of free RAM
+* at least 10 GB of free disk space (the size of the block chain increases over time)
 
 The interfaces are a commandline client (`zcash-cli`) and a Remote Procedure Call (RPC) interface, which is documented here:
 
-https://github.com/zcash/zcash/blob/v1.0.8-1/doc/payment-api.md
+https://github.com/zcash/zcash/blob/v1.0.14/doc/payment-api.md
 
 ## Security
 
@@ -60,7 +63,7 @@ On Ubuntu/Debian-based systems:
 $ sudo apt-get install \
       build-essential pkg-config libc6-dev m4 g++-multilib \
       autoconf libtool ncurses-dev unzip git python python-zmq \
-      zlib1g-dev wget bsdmainutils automake
+      zlib1g-dev wget curl bsdmainutils automake
 ```
 
 On Fedora-based systems:
@@ -68,7 +71,7 @@ On Fedora-based systems:
 ```bash
 $ sudo dnf install \
       git pkgconfig automake autoconf ncurses-devel python \
-      python-zmq wget gtest-devel gcc gcc-c++ libtool patch
+      python-zmq wget curl gtest-devel gcc gcc-c++ libtool patch
 ```
 
 On RHEL-based systems (including Scientific Linux):
@@ -76,17 +79,21 @@ On RHEL-based systems (including Scientific Linux):
 * Install devtoolset-3 and autotools-latest (if not previously installed).
 * Run ``scl enable devtoolset-3 'scl enable autotools-latest bash'`` and do the remainder of the build in the shell that this starts.
 
-#### Check gcc version
+#### Check GCC version
 
-gcc/g++ 4.9 or later is required. Use ``g++ --version`` to check which version you have.
+gcc/g++ 4.9 *or later* is required. Zcash has been successfully built using gcc/g++ versions 4.9 to 7.x inclusive. Use ``g++ --version`` to check which version you have.
 
-On Ubuntu Trusty, you can install gcc/g++ 4.9 as follows:
+On Ubuntu Trusty, if your version is too old then you can install gcc/g++ 4.9 as follows:
 
 ```
 $ sudo add-apt-repository ppa:ubuntu-toolchain-r/test
 $ sudo apt-get update
 $ sudo apt-get install g++-4.9
 ```
+
+#### Check binutils version
+
+binutils 2.22 *or later* is required. Use ``as --version`` to check which version you have, and upgrade if necessary.
 
 #### Fetch the software and parameter files
 
@@ -95,7 +102,7 @@ Fetch our repository with git and run `fetch-params.sh` like so:
 ```bash
 $ git clone https://github.com/zcash/zcash.git
 $ cd zcash/
-$ git checkout v1.0.8-1
+$ git checkout v1.0.14
 $ ./zcutil/fetch-params.sh
 ```
 
@@ -114,14 +121,12 @@ $ ./zcutil/build.sh --disable-rust -j$(nproc)
 This should compile our dependencies and build `zcashd`. (Note: if you don't have `nproc`, then substitute the number of cores on your system. If the build runs out of memory, try again without the `-j` argument, i.e. just `./zcutil/build.sh --disable-rust`.
 )
 
-Note (25 April 2017): if you experience build issues with recent master (after 1.0.8 and v1.0.8-1), try passing the flag `--disable-proton` to `./zcutil/build.sh`.
-
 #### Testing
 
 The tests take a while to run and may require up to 8GB of RAM. If you would rather get started right away, you can skip to the next section. If you want to run the tests to make sure Zcash is working, run:
 
 ```bash
-$ ./qa/zcash/full-test-suite.sh
+$ ./qa/zcash/full_test_suite.sh
 ```
 
 You can also run the RPC tests, which take much longer:
@@ -143,7 +148,7 @@ echo "rpcuser=username" >>~/.zcash/zcash.conf
 echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >>~/.zcash/zcash.conf
 ```
 
-Note that this will overwrite any `zcash.conf` settings you may have added from testnet. (If you want to run on testnet, you can retain a `zcash.conf` from testnet.) To run on mainnet, make sure that the `testnet=1` and `addnode=betatestnet.z.cash` settings are removed; use `addnode=mainnet.z.cash` instead. We strongly recommend that you use a random password to avoid [potential security issues with access to the RPC interface](https://github.com/zcash/zcash/blob/master/doc/security-warnings.md#rpc-interface).
+Note that this will overwrite any `zcash.conf` settings you may have added from testnet. (If you want to run on testnet, you can retain a `zcash.conf` from testnet.) The commands above also assign a random password to avoid [potential security issues with access to the RPC interface](https://github.com/zcash/zcash/blob/master/doc/security-warnings.md#rpc-interface).
 
 If you wish to run zcashd on testnet, change the lines in zcash.conf indicating the network and node discovery: `testnet=1` instead of `mainnet=1` and `addnode=testnet.z.cash` instead of `addnode=mainnet.z.cash`. 
 
@@ -204,6 +209,14 @@ Let's generate a t-addr first.
 $ ./src/zcash-cli getnewaddress
 t14oHp2v54vfmdgQ3v3SNuQga8JKHTNi2a1
 ```
+
+### Listing transparent addresses
+
+```bash
+$ ./src/zcash-cli getaddressesbyaccount ""
+```
+
+This should show the address that was just created.
 
 ### Receiving Zcash with a z-addr
 

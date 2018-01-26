@@ -67,18 +67,33 @@ For license information see the file `COPYING <COPYING>`_.
     :maxdepth: 2
     :caption: User Documentation
 
+    Sprout_User_Guide.rst
     payment-api.rst
     wallet-backup.rst
+    shield-coinbase.rst
     tor.rst
     security-warnings.rst
-     
+    dnsseed-policy.rst
+    files.rst
+    Mining_Guide.rst
+    payment-disclosure.rst
+    unit-tests.rst
+    
 .. toctree::
     :hidden:
     :maxdepth: 2
     :caption: Developer Documentation
 
+    developer-notes.rst
     amqp.rst
-
+    zmq.rst
+    release-process.rst
+    hotfix-process.rst
+    init.rst
+    translation_strings_policy.rst
+    release-notes/
+    bitcoin-release-notes/
+    
 .. toctree::
     :hidden:
     :maxdepth: 2
