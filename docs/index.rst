@@ -73,6 +73,7 @@ For license information see the file `COPYING <COPYING>`_.
     shield-coinbase.rst
     tor.rst
     security-warnings.rst
+    Troubleshooting-FAQ.rst
     dnsseed-policy.rst
     files.rst
     Mining_Guide.rst
@@ -84,11 +85,13 @@ For license information see the file `COPYING <COPYING>`_.
     :maxdepth: 2
     :caption: Developer Documentation
 
+    Zcash-development.rst
     developer-notes.rst
     amqp.rst
     zmq.rst
     release-process.rst
     hotfix-process.rst
+    Zcash-issue-tracking.rst
     init.rst
     translation_strings_policy.rst
     release-notes/
