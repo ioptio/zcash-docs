@@ -1,4 +1,4 @@
-#Troubleshooting FAQ
+# Troubleshooting FAQ
 
 The General FAQ has been reorganized and relocated to https://z.cash/support/faq.html. Please check there for the latest updates to our frequently asked questions. The following is a list of questions for Troubleshooting zcashd, the core Zcash client software.
 

@@ -72,13 +72,13 @@ For license information see the file `COPYING <COPYING>`_.
     RPC-glossary.rst
     wallet-backup.rst
     shield-coinbase.rst
+    payment-disclosure.rst
     tor.rst
     security-warnings.rst
     Troubleshooting-FAQ.rst
     dnsseed-policy.rst
     files.rst
     Mining_Guide.rst
-    payment-disclosure.rst
     unit-tests.rst
     
 .. toctree::
