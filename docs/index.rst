@@ -69,6 +69,7 @@ For license information see the file `COPYING <COPYING>`_.
 
     Sprout_User_Guide.rst
     payment-api.rst
+    RPC-glossary.rst
     wallet-backup.rst
     shield-coinbase.rst
     tor.rst

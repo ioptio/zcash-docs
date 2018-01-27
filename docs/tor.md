@@ -1,6 +1,6 @@
 *** Warning: Do not assume Tor support does the correct thing in Zcash; better Tor support is a future feature goal. ***
 
-TOR SUPPORT IN ZCASH
+Tor Support in Zcash
 ====================
 
 It is possible to run Zcash as a Tor hidden service, and connect to such services.
