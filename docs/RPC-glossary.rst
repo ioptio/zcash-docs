@@ -10,46 +10,34 @@ The `addmultisigaddress` RPC |summary addMultiSigAddress|
 
 *Parameter #1---the number of signatures required*
 
-+----------+--------------+-------------+----------------------------------------------------------------------------+
-| |n|      | |t|          | |p|         | |d|                                                                        |
-+==========+==============+=============+============================================================================+
-| Required | number (int) | Required    | The minimum (*m*) number of signatures required to spend this m-of-n       |
-|          |              | (exactly 1) | multisig script                                                            |
-+----------+--------------+-------------+----------------------------------------------------------------------------+
+.. csv-table::
+    :header: |n|, |t|, |p|, |d|
+
+    "Required", "number (int)", "Required (exactly 1)", "The minimum (*m*) number of signatures required to spend this m-of-n multisig script"
 
 *Parameter #2---the full public keys, or addresses for known public keys*
 
-+-------------------+--------+-------------+-------------------------------------------------------------------------+
-| |n|               | |t|    | |p|         | |d|                                                                     |
-+===================+========+=============+=========================================================================+
-| Keys Or Addresses | array  | Required    | An array of strings with each string being a transparent public key or  |
-|                   |        | (exactly 1) | address                                                                 |
-+-------------------+--------+-------------+-------------------------------------------------------------------------+
-| Key Or Address    | string | Required    | A public key against which signatures will be checked.  Alternatively,  |
-|                   |        | (1 or more) | this may be a P2PKH address belonging to the wallet---the corresponding |
-|                   |        |             | public key will be substituted.  There must be at least as many keys as |
-|                   |        |             | specified by the Required parameter, and there may be more keys         |
-+-------------------+--------+-------------+-------------------------------------------------------------------------+
+.. csv-table::
+    :header: |n|, |t|, |p|, |d|
+
+    "Keys or Addresses", "array", "Required (exactly 1)", "An array of strings with each string being a public key or address"
+    "→<br>Key Or Address", "string", "Required (1 or more)", "A public key against which signatures will be checked.  Alternatively, this may be a P2PKH address belonging to the wallet---the corresponding public key will be substituted.  There must be at least as many keys as specified by the Required parameter, and there may be more keys"
 
 *Parameter #3---the account name*
 
 *DEPRECATED. If provided, MUST be set to the empty string "" to represent the default account. Passing any other string will result in an error.*
 
-+----------+---------+-------------+---------------------------------------------------------------------------------+
-| |n|      | |t|     | |p|         | |d|                                                                             |
-+==========+=========+=============+=================================================================================+
-| Account  | string  | Optional    | The account name in which the address should be stored.  Default is the default |
-|          |         | (0 or 1)    | account, \"\" (an empty string)                                                 |
-+----------+---------+-------------+---------------------------------------------------------------------------------+
+.. csv-table::
+    :header: |n|, |t|, |p|, |d|
+
+    "Account", "string", "Optional (0 or 1)", "Accounts are deprecated and if provided MUST be set to the empty string \"\" to represent the default account."
 
 *Result---a P2SH address printed and stored in the wallet*
 
-+----------+-----------------+-------------+-------------------------------------------------------------------------+
-| |n|      | |t|             | |p|         | |d|                                                                     |
-+==========+=================+=============+=========================================================================+
-| `result` | string (base58) | Required    | The P2SH multisig address.  The address will also be added to the       |
-|          |                 | (exactly 1) | wallet, and outputs paying that address will be tracked by the wallet   |
-+----------+-----------------+-------------+-------------------------------------------------------------------------+
+.. csv-table::
+    :header: |n|, |t|, |p|, |d|
+
+    "`result`", "string (base58)", "Required (exactly 1)", "The P2SH multisig address.  The address will also be added to the wallet, and outputs paying that address will be tracked by the wallet"
 
 *Example*
 
