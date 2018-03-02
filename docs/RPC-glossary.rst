@@ -12,11 +12,9 @@ The `addmultisigaddress` RPC |summary addMultiSigAddress|
 
 .. csv-table::
    :header: |n|, |t|, |p|, |d|
-
-   "Required", "number
-   (int)", "Required
-   (exactly 1)", "The minimum (*m*) number of signatures required
-   to spend this m-of-n multisig script"
+   :widths: 20 10 10 40
+	    
+   "Required", "number (int)", "Required (exactly 1)", "The minimum (*m*) number of signatures required to spend this m-of-n multisig script"
 
 *Parameter #2---the full public keys, or addresses for known public keys*
 
