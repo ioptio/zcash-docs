@@ -240,6 +240,7 @@ The ``createrawtransaction`` RPC |summary_createRawTransaction|
    "→ → ``vout``", "number (int)", "Required (exactly 1)", "The output index number of the outpoint; the first output in a transaction is index ``0``"
 
 *Parameter #2---P2PKH or P2SH addresses and amounts*
+   
 .. csv-table::
    :header: |n|, |t|, |p|, |d|
 
@@ -281,12 +282,14 @@ The ``decoderawtransaction`` RPC |summary_decodeRawTransaction|
 .. |summary_decodeRawTransaction| replace:: decodes a serialized transaction hex string into a JSON object describing the transaction.
 
 *Parameter #1---serialized transaction in hex*
+
 .. csv-table::
    :header: |n|, |t|, |p|, |d|
 
    "Serialized transaction", "string (hex)", "Required (exactly 1)", "The transaction to decode in serialized transaction format"
 
 *Result---the decoded transaction*
+
 .. csv-table::
    :header: |n|, |t|, |p|, |d|
 
@@ -403,12 +406,14 @@ The ``decodescript`` RPC |summary_decodeScript|
 .. |summary_decodeScript| replace:: decodes a hex-encoded P2SH redeem script.
 
 *Parameter #1---a hex-encoded redeem script*
+
 .. csv-table::
    :header: |n|, |t|, |p|, |d|
 
    "Redeem Script", "string (hex)", "Required" (exactly 1)", "The redeem script to decode as a hex-encoded serialized script"
 
 *Result---the decoded script*
+
 .. csv-table::
    :header: |n|, |t|, |p|, |d|
 
@@ -458,6 +463,7 @@ The ``dumpprivkey`` RPC {{summary_dumpPrivKey}}
 .. |summary_dumpPrivKey| replace:: returns the wallet-import-format (WIP) private key corresponding to a transparent address. (But does not remove it from the wallet.)
 
 *Parameter #1---the address corresponding to the private key to get*
+
 .. csv-table::
    :header: |n|, |t|, |p|, |d|
 
@@ -492,6 +498,7 @@ The ``dumpwallet`` RPC {{summary_dumpWallet}}
 .. |summary_dumpWallet| replace:: creates or overwrites a file with all of the wallet's transparent keys in a human-readable format to the specified alphanumeric filename only after setting ``-exportdir=``.
 
 *Parameter #1---a filename*
+
 .. csv-table::
    :header: |n|, |t|, |p|, |d|
 
@@ -530,12 +537,14 @@ The ``estimatefee`` RPC |summary_estimateFee|
 .. |summary_estimateFee| replace:: estimates the transaction fee per kilobyte that needs to be paid for a transaction to be included within a certain number of blocks.
 
 *Parameter #1---how many blocks the transaction may wait before being included*
+
 .. csv-table::
    :header: |n|, |t|, |p|, |d|
 
    "Blocks", "number (int)", "Required (exactly 1)", "The maximum number of blocks a transaction should have to wait before it is predicted to be included in a block"
 
 *Result---the fee the transaction needs to pay per kilobyte*
+
 .. csv-table::
    :header: |n|, |t|, |p|, |d|
 
@@ -571,12 +580,14 @@ The ``estimatepriority`` RPC {{summary_estimatePriority}}
 Transaction priority is relative to a transaction's byte size.
 
 *Parameter #1---how many blocks the transaction may wait before being included as a free high-priority transaction*
+
 .. csv-table::
    :header: |n|, |t|, |p|, |d|
 
    "Blocks", "number (int)", "Required (exactly 1)", "The maximum number of blocks a transaction should have to wait before it is predicted to be included in a block based purely on its priority"
 
 *Result---the priority a transaction needs*
+
 .. csv-table::
    :header: |n|, |t|, |p|, |d|
 
