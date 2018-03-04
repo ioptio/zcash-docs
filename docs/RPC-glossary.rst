@@ -4,7 +4,7 @@ AddMultiSigAddress
 ++++++++++++++++++
 *Requires wallet support.*
 
-The `addmultisigaddress` RPC |summary addMultiSigAddress|
+The ``addmultisigaddress`` RPC |summary addMultiSigAddress|
 
 .. |summary addMultiSigAddress| replace:: adds a P2SH multisig transparent address to the wallet. *Multisig is not supported for shielded addresses.*
 
@@ -19,26 +19,26 @@ The `addmultisigaddress` RPC |summary addMultiSigAddress|
 *Parameter #2---the full public keys, or addresses for known public keys*
 
 .. csv-table::
-    :header: |n|, |t|, |p|, |d|
+   :header: |n|, |t|, |p|, |d|
 
-    "Keys or Addresses", "array", "Required (exactly 1)", "An array of strings with each string being a public key or address"
-    "→<br>Key Or Address", "string", "Required (1 or more)", "A public key against which signatures will be checked.  Alternatively, this may be a P2PKH address belonging to the wallet---the corresponding public key will be substituted.  There must be at least as many keys as specified by the Required parameter, and there may be more keys"
+   "Keys or Addresses", "array", "Required (exactly 1)", "An array of strings with each string being a transparent address or associated public key"
+   "→ Key Or Address", "string", "Required (1 or more)", "A transparent address or public key against which signatures will be checked. There must be at least as many keys as specified by the Required parameter, and there may be more keys"
 
 *Parameter #3---the account name*
 
 *DEPRECATED. If provided, MUST be set to the empty string "" to represent the default account. Passing any other string will result in an error.*
 
 .. csv-table::
-    :header: |n|, |t|, |p|, |d|
+   :header: |n|, |t|, |p|, |d|
 
-    "Account", "string", "Optional (0 or 1)", "Accounts are deprecated and if provided MUST be set to the empty string \"\" to represent the default account."
+   "Account", "string", "Optional (0 or 1)", "Accounts are deprecated and if provided MUST be set to the empty string \"\" to represent the default account."
 
 *Result---a P2SH address printed and stored in the wallet*
 
 .. csv-table::
-    :header: |n|, |t|, |p|, |d|
+   :header: |n|, |t|, |p|, |d|
 
-    "`result`", "string (base58)", "Required (exactly 1)", "The P2SH multisig address.  The address will also be added to the wallet, and outputs paying that address will be tracked by the wallet"
+   "``result``", "string (base58)", "Required (exactly 1)", "The P2SH multisig address. The address will also be added to the wallet, and outputs paying that address will be tracked by the wallet"
 
 *Example*
 
@@ -60,47 +60,35 @@ Result: ::
 
 AddNode
 +++++++
-The `addnode` RPC |summary_addNode|
+The ``addnode`` RPC |summary_addNode|
 
 .. |summary_addNode| replace:: attempts to add or remove a node from the addnode list, or to try a connection to a node once.
 
 
 *Parameter #1---hostname/IP address and port of node to add or remove*
 
-+------+--------+-------------+--------------------------------------------------------------------------------------+
-| |n|  | |t|    | |p|         | |d|                                                                                  |
-+======+========+=============+======================================================================================+
-| Node | string | Required    | The node to add as a string in the form of `<IP address>:<port>`. The IP address may |
-|      |        | (exactly 1) | be a hostname resolvable through DNS, an IPv4 address, an IPv4-as-IPv6 address, or   |
-|      |        |             | IPv6 address                                                                         |
-+------+--------+-------------+--------------------------------------------------------------------------------------+
+.. csv-table::
+   :header: |n|, |t|, |p|, |d|
+
+   "Node", "string", "Required (exactly 1)", "The node to add as a string in the form of ``<IP address>:<port>``.  The IP address may be a hostname resolvable through DNS, an IPv4 address, an IPv4-as-IPv6 address, or an IPv6 address"
 
 *Parameter #2---whether to add or remove the node, or to try only once to connect*
 
-+---------+--------+-------------+-----------------------------------------------------------------------------------+
-| |n|     | |t|    | |p|         | |d|                                                                               |
-+=========+========+=============+===================================================================================+
-| Command | string | Required    | What to do with the IP address above.  Options are:                               |
-|         |        | (exactly 1) |                                                                                   |
-|         |        |             | - `add` to add a node to the addnode list.  This will not connect immediately if  |
-|         |        |             |   the outgoing connection slots are full                                          |
-|         |        |             |                                                                                   |
-|         |        |             | - `remove` to remove a node from the list.  If currently connected, this will     |
-|         |        |             |   disconnect immediately                                                          |
-|         |        |             |                                                                                   |
-|         |        |             | - `onetry` to immediately attempt connection to the node even if the outgoing     |
-|         |        |             |   connection slots are full; this will only attempt the connection once           |
-+---------+--------+-------------+-----------------------------------------------------------------------------------+
+.. csv-table::
+   :header: |n|, |t|, |p|, |d|
+
+   "Command", "string", "Required (exactly 1)", "What to do with the IP address above.  Options are:
+
+   - ``add`` to add a node to the addnode list.  Up to 8 nodes can be added additional to the default 8 nodes. Not limited by ``-maxconnections``
+   - ``remove`` to remove a node from the list.  If currently connected, this will disconnect immediately
+   - ``onetry`` to immediately attempt connection to the node even if the outgoing connection slots are full; this will only attempt the connection once"
 
 *Result---`null` plus error on failed remove*
 
-+----------+--------+-------------+----------------------------------------------------------------------------------+
-| |n|      | |t|    | |p|         | |d|                                                                              |
-+==========+========+=============+==================================================================================+
-| `result` | null   | Required    | Always JSON `null` whether the node was added, removed, tried-and-connected, or  |
-|          |        | (exactly 1) | tried-and-not-connected.  The JSON-RPC error field will be set only if you try   |
-|          |        |             | removing a node that is not on the addnodes list                                 |
-+----------+--------+-------------+----------------------------------------------------------------------------------+
+.. csv-table::
+   :header: |n|, |t|, |p|, |d|
+
+   "``result``", "null", "Required (exactly 1)", "Always JSON ``null`` whether the node was added, removed, tried-and-connected, or tried-and-not-connected.  The JSON-RPC error field will be set only if you try removing a node that is not on the addnodes list"
 
 *Example*
 
@@ -118,28 +106,23 @@ BackupWallet
 ++++++++++++
 *Requires wallet support.*
 
-The `backupwallet` RPC |summary_backupWallet|
+The ``backupwallet`` RPC |summary_backupWallet|
 
 .. |summary_backupWallet| replace:: safely copies `wallet.dat` to the specified alphanumeric filename only after setting ``-exportdir=``.
 
 *Parameter #1---destination filename*
 
-+----------+----------------+-------------+--------------------------------------------------------------------------+
-| |n|      | |t|            | |p|         | |d|                                                                      |
-+==========+================+=============+==========================================================================+
-| Filename | string         | Required    | A filename to be created or overwritten within the directory specified   |
-|          | (alphanumeric) | (exactly 1) | in ``-exportdir=``.                                                      |
-+----------+----------------+-------------+--------------------------------------------------------------------------+
+.. csv-table::
+   :header: |n|, |t|, |p|, |d|
+
+   "Filename", "string (alphanumeric)", "Required (exactly 1)", "A filename to be created or overwritten within the directory specified in ``-exportdir=``."
 
 *Result---the full path of the destination file*
 
-+----------+----------------------+-------------+--------------------------------------------------------------------+
-| |n|      | |t|                  | |p|         | |d|                                                                |
-+==========+======================+=============+====================================================================+
-| `result` | string (full path    | Required    | Returns full path of destination file or error message. The        |
-|          | of destination file) | (exactly 1) | JSON-RPC error and message fields will be set if a failure         |
-|          |                      |             | occurred                                                           |
-+----------+----------------------+-------------+--------------------------------------------------------------------+
+.. csv-table::
+   :header: |n|, |t|, |p|, |d|
+
+   "``result``", "string (full path of destination file)", "Required (exactly 1)", "Returns the full path of destination file or error message. The JSON-RPC error and message fields will be set if a failure occurred."
 
 *Example*
 
@@ -158,7 +141,7 @@ Result: ::
 
 ClearBanned
 +++++++++++
-The `clearbanned` RPC |summary_clearBanned|
+The ``clearbanned`` RPC |summary_clearBanned|
 
 .. |summary_clearBanned| replace:: clears list of banned nodes.
 
@@ -167,9 +150,9 @@ The `clearbanned` RPC |summary_clearBanned|
 *Result---`null` on success*
 
 .. csv-table::
-    :header: |n|, |t|, |p|, |d|
+   :header: |n|, |t|, |p|, |d|
 
-    "`result`", "null", "Required(exactly 1)", "JSON `null` when the list was cleared"
+   "``result``", "null", "Required(exactly 1)", "JSON `null` when the list was cleared"
 
 *Example*
 
@@ -187,48 +170,33 @@ Result (no output from `zcash-cli` because result is set to `null`).
   
 CreateMultiSig
 ++++++++++++++
-The `createmultisig` RPC |summary_createMultiSig|
+The ``createmultisig`` RPC |summary_createMultiSig|
 
 .. |summary_createMultiSig| replace:: creates a P2SH multi-signature transparent address. *Multisig is not supported for shielded addresses.*
 
 *Parameter #1---the number of signatures required*
 
-+----------+--------------+-------------+----------------------------------------------------------------------------+
-| |n|      | |t|          | |p|         | |d|                                                                        |
-+==========+==============+=============+============================================================================+
-| Required | number (int) | Required    | The minimum (*m*) number of signatures required to spend this m-of-n       |
-|          |              | (exactly 1) | multisig script                                                            |
-+----------+--------------+-------------+----------------------------------------------------------------------------+
+.. csv-table::
+   :header: |n|, |t|, |p|, |d|
+
+   "Required", "number (int)", "Required (exactly 1)", "The minimum (*m*) number of signatures required to spend this m-of-n multisig script"
 
 *Parameter #2---the full public keys of transparent addresses, or transparent addresses for known public keys*
 
-+-------------------+--------+-------------+-------------------------------------------------------------------------+
-| |n|               | |t|    | |p|         | |d|                                                                     |
-+===================+========+=============+=========================================================================+
-| Keys Or Addresses | array  | Required    | An array of strings with each string being a transparent public key or  |
-|                   |        | (exactly 1) | address                                                                 |
-+-------------------+--------+-------------+-------------------------------------------------------------------------+
-| Key Or Address    | string | Required    | A transparent public key against which signatures will be checked.      |
-|                   |        | (1 or more) | Alternatively, this may be a P2PKH address belonging to the wallet---   |
-|                   |        |             | the corresponding public key will be substituted.  There must be at     |
-|                   |        |             | least as many keys as specified by the Required parameter, and there    |
-|                   |        |             | may be more keys                                                        |
-+-------------------+--------+-------------+-------------------------------------------------------------------------+
+.. csv-table::
+   :header: |n|, |t|, |p|, |d|
+
+   "Keys or Addresses", "array", "Required (exactly 1)", "An array of strings with each string being a transparent address or associated public key"
+   "→ Key Or Address", "string", "Required (1 or more)", "A transparent address or public key against which signatures will be checked. There must be at least as many keys as specified by the Required parameter, and there may be more keys"
 
 *Result---P2SH address and hex-encoded redeem script*
 
-+----------------+-----------------+-------------+-------------------------------------------------------------------+
-| |n|            | |t|             | |p|         | |d|                                                               |
-+================+=================+=============+===================================================================+
-| `result`       | object          | Required    | An object describing the multisig address                         |
-|                |                 | (exactly 1) |                                                                   |
-+----------------+-----------------+-------------+-------------------------------------------------------------------+
-| `address`      | string (base58) | Required    | The P2SH address for this multisig redeem script                  |
-|                |                 | (exactly 1) |                                                                   |
-+----------------+-----------------+-------------+-------------------------------------------------------------------+
-| `redeemScript` | string (hex)    | Required    | The multisig redeem script encoded as hex                         |
-|                |                 | (exactly 1) |                                                                   |
-+----------------+-----------------+-------------+-------------------------------------------------------------------+
+.. csv-table::
+   :header: |n|, |t|, |p|, |d|
+
+   "``result``", "object", "Required (exactly 1)", "An object describing the multisig address"
+   "``address``", "string (base58)", "Required (exactly 1)", "The value of the new multisig address"
+   "``redeemScript``", string (hex), Required (exactly 1)", "The string value of the hex-encoded redemption script."
 
 *Example*
 
@@ -257,49 +225,33 @@ Result: ::
 
 CreateRawTransaction
 ++++++++++++++++++++
-The `createrawtransaction` RPC |summary_createRawTransaction|
+The ``createrawtransaction`` RPC |summary_createRawTransaction|
 
 .. |summary_createRawTransaction| replace:: creates an unsigned serialized transaction that spends a previous output to a new output with a P2PKH or P2SH address. The transaction is not stored in the wallet or transmitted to the network.
 
 *Parameter #1---references to previous outputs*
 
-+-----------+--------------+-------------+---------------------------------------------------------------------------+
-| |n|       | |t|          | |p|         | |d|                                                                       |
-+===========+==============+=============+===========================================================================+
-| Outpoints | array        | Required    | An array of objects, each one being an unspent outpoint                   |
-|           |              | (exactly 1) |                                                                           |
-+-----------+--------------+-------------+---------------------------------------------------------------------------+
-| Outpoint  | object       | Required    | An object describing a particular unspent outpoint                        |
-|           |              | (1 or more) |                                                                           |
-+-----------+--------------+-------------+---------------------------------------------------------------------------+
-| `txid`    | string (hex) | Required    | The TXID of the outpoint encoded as hex in RPC byte order                 |
-|           |              | (exactly 1) |                                                                           |
-+-----------+--------------+-------------+---------------------------------------------------------------------------+
-| `vout`    | number (int) | Required    | The output index number (vout) of the outpoint; the first output in a     |
-|           |              | (exactly 1) | transaction is index `0`                                                  |
-+-----------+--------------+-------------+---------------------------------------------------------------------------+
+.. csv-table::
+   :header: |n|, |t|, |p|, |d|
+
+   "Inputs", "array", "Required (exactly 1)", "An array of objects, each one being used as an input to the transaction"
+   "→ Input", "object", "Required (1 or more)", "An object describing a particular input"
+   "→ → ``txid``", "string (hex)", "Required (exactly 1)", "The TXID of the outpoint encoded as hex in RPC byte order"
+   "→ → ``vout``", "number (int)", "Required (exactly 1)", "The output index number of the outpoint; the first output in a transaction is index ``0``"
 
 *Parameter #2---P2PKH or P2SH addresses and amounts*
+.. csv-table::
+   :header: |n|, |t|, |p|, |d|
 
-+-----------+--------+-------------+---------------------------------------------------------------------------------+
-| |n|       | |t|    | |p|         | |d|                                                                             |
-+===========+========+=============+=================================================================================+
-| Outpoints | object | Required    | The addresses and amounts to pay                                                |
-|           |        | (exactly 1) |                                                                                 |
-+-----------+--------+-------------+---------------------------------------------------------------------------------+
-| Address/  | number | Required    | A key/value pair with the address to pay as a string (key) and the amount to    |
-| Amount    | (ZEC)  | (1 or more) | pay that address (value) in ZEC                                                 |
-+-----------+--------+-------------+---------------------------------------------------------------------------------+
+   "Outpoints", "object", "Required (exactly 1)", "The addresses and amounts to pay"
+   "→ Address/Amount", "string: number (zcash)", "Required (1 or more)", A key/value pair with the address to pay as a string (key) and the amount to pay that address (value) in zcash"
 
 *Result---the unsigned raw transaction in hex*
 
-+----------+--------+-------------+----------------------------------------------------------------------------------+
-| |n|      | |t|    | |p|         | |d|                                                                              |
-+==========+========+=============+==================================================================================+
-| `result` | string | Required    | The resulting unsigned raw transaction in serialized transaction format encoded  |
-|          |        | (exactly 1) | as hex.  If the transaction couldn't be generated, this will be set to JSON      |
-|          |        |             | `null` and the JSON-RPC error field may contain an error message                 |
-+----------+--------+-------------+----------------------------------------------------------------------------------+
+.. csv-table::
+   :header: |n|, |t|, |p|, |d|
+
+   "``result``", "string", Required (exactly 1)", "The resulting unsigned raw transaction in serialized transaction format encoded as hex. If the transaction couldn’t be generated, this will be set to JSON ``null`` and the JSON-RPC error field may contain an error message"
 
 *Example*
 ::
@@ -324,112 +276,53 @@ Result (wrapped): ::
 
 DecodeRawTransaction
 ++++++++++++++++++++
-The `decoderawtransaction` RPC |summary_decodeRawTransaction|
+The ``decoderawtransaction`` RPC |summary_decodeRawTransaction|
 
 .. |summary_decodeRawTransaction| replace:: decodes a serialized transaction hex string into a JSON object describing the transaction.
 
 *Parameter #1---serialized transaction in hex*
+.. csv-table::
+   :header: |n|, |t|, |p|, |d|
 
-+-------------+--------------+-------------+-------------------------------------------------------------------------+
-| |n|         | |t|          | |p|         | |d|                                                                     |
-+=============+==============+=============+=========================================================================+
-| Serialized  | string (hex) | Required    | The transaction to decode in serialized transaction format              |
-| Transaction |              | (exactly 1) |                                                                         |
-+-------------+--------------+-------------+-------------------------------------------------------------------------+
+   "Serialized transaction", "string (hex)", "Required (exactly 1)", "The transaction to decode in serialized transaction format"
 
 *Result---the decoded transaction*
+.. csv-table::
+   :header: |n|, |t|, |p|, |d|
 
-+----------------+--------------+-------------+--------------------------------------------------------------------+
-| |n|            | |t|          | |p|         | |d|                                                                |
-+================+==============+=============+====================================================================+
-| `result`       | object       | Required    | An object describing the decoded transaction, or JSON `null` if    |
-|                |              | (exactly 1) | the transaction could not be decoded                               |
-+----------------+--------------+-------------+--------------------------------------------------------------------+
-| →              | string (hex) | Required    | The transaction's TXID encoded as hex in RPC byte order            |
-| `txid`         |              | (exactly 1) |                                                                    |
-+----------------+--------------+-------------+--------------------------------------------------------------------+
-| →              | number (int) | Required    | The transaction format version number                              |
-| `version`      |              | (1 or more) |                                                                    |
-+----------------+--------------+-------------+--------------------------------------------------------------------+
-| →              | number (int) | Required    | The transaction's locktime: either a Unix epoch date or block      |
-| `locktime`     |              | (exactly 1) | height; see the `Locktime parsing rules`_                          |
-+----------------+--------------+-------------+--------------------------------------------------------------------+
-| →              | array        | Required    | An array of objects with each object being an input vector (vin)   |
-| `vin`          |              | (exactly 1) | for this transaction.  Input objects will have the same order      |
-|                |              |             | within the array as they have in the transaction, so the first     |
-|                |              |             | input listed will be input 0                                       |
-+----------------+--------------+-------------+--------------------------------------------------------------------+
-| → →            | object       | Required    | An object describing one of this transaction's inputs.  May be a   |
-| Input          |              | (1 or more) | regular input or a coinbase                                        |
-+----------------+--------------+-------------+--------------------------------------------------------------------+
-| → → →          | string       | Optional    | The TXID of the outpoint being spent, encoded as hex in RPC byte   |
-| `txid`         |              | (0 or 1)    | order.  Not present if this is a coinbase transaction              |
-+----------------+--------------+-------------+--------------------------------------------------------------------+
-| → → →          | number (int) | Optional    | The output index number (vout) of the outpoint being spent.  The   |
-| `vout`         |              | (0 or 1)    | first output in a transaction has an index of `0`.  Not present if |
-|                |              |             | this is a coinbase transaction                                     |
-+----------------+--------------+-------------+--------------------------------------------------------------------+
-| → → →          | object       | Optional    | An object describing the signature script of this input.  Not  if  |
-| `scriptSig`    |              | (0 or 1)    | this is a coinbase present transaction                             |
-+----------------+--------------+-------------+--------------------------------------------------------------------+
-| → → → →        | string       | Required    | The signature script in decoded form with non-data-pushing opcodes |
-| `asm`          |              | (exactly 1) | listed                                                             |
-+----------------+--------------+-------------+--------------------------------------------------------------------+
-| → → → →        | string (hex) | Required    | The signature script encoded as hex                                |
-| `hex`          |              | (exactly 1) |                                                                    |
-+----------------+--------------+-------------+--------------------------------------------------------------------+
-| → → →          | string (hex) | Optional    | The coinbase (similar to the hex field of a scriptSig) encoded as  |
-| `coinbase`     |              | (0 or 1)    | hex. Only present if this is a coinbase transaction                |
-+----------------+--------------+-------------+--------------------------------------------------------------------+
-| → → →          | number (int) | Required    | The input sequence number                                          |
-| `sequence`     |              | (exactly 1) |                                                                    |
-+----------------+--------------+-------------+--------------------------------------------------------------------+
-| →              | array        | Required    | An array of objects each describing an output vector (vout) for    |
-| `vout`         |              | (exactly 1) | this transaction. Output objects will have the same order within   |
-|                |              |             | the array as they have in the transaction, so the first output     |
-|                |              |             | listed will be output 0                                            |
-+----------------+--------------+-------------+--------------------------------------------------------------------+
-| → →            | object       | Required    | An object describing one of this transaction's outputs             |
-| Output         |              | (1 or more) |                                                                    |
-+----------------+--------------+-------------+--------------------------------------------------------------------+
-| → → →          | number (ZEC) | Required    | The number of ZEC paid to this output.  May be `0`                 |
-| `value`        |              | (exactly 1) |                                                                    |
-+----------------+--------------+-------------+--------------------------------------------------------------------+
-| → → →          | number (int) | Required    | The output index number of this output within this transaction     |
-| `n`            |              | (exactly 1) |                                                                    |
-+----------------+--------------+-------------+--------------------------------------------------------------------+
-| → → →          | object       | Required    | An object describing the pubkey script                             |
-| `scriptPubKey` |              | (exactly 1) |                                                                    |
-+----------------+--------------+-------------+--------------------------------------------------------------------+
-| → → → →        | string       | Required    | The pubkey script in decoded form with non-data-pushing opcodes    |
-| `asm`          |              | (exactly 1) | listed                                                             |
-+----------------+--------------+-------------+--------------------------------------------------------------------+
-| → → → →        | string (hex) | Required    | The pubkey script encoded as hex                                   |
-| `hex`          |              | (exactly 1) |                                                                    |
-+----------------+--------------+-------------+--------------------------------------------------------------------+
-| → → → →        | number (int) | Optional    | The number of signatures required; this is always `1` for P2PK,    |
-| `regSigs`      |              | (0 or 1)    | P2PKH, and P2SH (including P2SH multisig because the redeem script |
-|                |              |             | is not available in the pubkey script).  It may be greater than 1  |
-|                |              |             | for bare multisig.  This value will not be returned for `nulldata` |
-|                |              |             | or `nonstandard` script types (see the `type` key below)           |
-+----------------+--------------+-------------+--------------------------------------------------------------------+
-| → → → →        | string       | Optional    | The type of script.  This will be one of the following:            |
-| `type`         |              | (0 or 1)    | - `pubkey` for a P2PK script                                       |
-|                |              |             | - `pubkeyhash` for a P2PKH script                                  |
-|                |              |             | - `scripthash` for a P2SH script                                   |
-|                |              |             | - `multisig` for a bare multisig script                            |
-|                |              |             | - `nulldata` for nulldata scripts                                  |
-|                |              |             | - `nonstandard` for unknown scripts                                |
-+----------------+--------------+-------------+--------------------------------------------------------------------+
-| → → → →        | string:      | Optional    | The P2PKH or P2SH addresses used in this transaction, or the       |
-| `addresses`    | array        | (0 or 1)    | computed P2PKH address of any pubkeys in this transaction.  This   |
-|                |              |             | array will not be returned for `nulldata` or `nonstandard` script  |
-|                |              |             | types                                                              |
-+----------------+--------------+-------------+--------------------------------------------------------------------+
-| → → → → →      | string:      | Required    | A P2PKH or P2SH address                                            |
-| `Address`      |              | (1 or more) |                                                                    |
-+----------------+--------------+-------------+--------------------------------------------------------------------+
-
+   "``result``", "object", "Required (exactly 1)", "An object describing the decoded transaction, or JSON ``null`` if the tranasction could not be decoded"
+   "Overwintered", "boolean", "Required (0 or 1)", "The flag designating an Overwintered transaction"
+   "→ ``txid``", "string (hex)", "Required (exactly 1)", "The transaction's TXID encoded as hex in RPC byte order"
+   "→ ``version``", "number (int)', Required (exactly 1)", "The transaction format version number"
+   "→ ``versiongroupid``", "string (hex)", "Optional (0 or 1)", "The version group id for Overwintered transactions"
+   "→ ``locktime``", number (int)", "Required (exactly 1)", "The transaction's locktime: either a unix epoch date or block height"
+   "→ ``expiryheight``", "number (int)", "Optional (0 or 1)", "The last block height that the transaction will be mined for Overwinter compatible transactions"
+   "→ ``vin``", "array", "Required (exactly 1)", "An array of objects with each object being an input vector for this transaction. Input objects will have the same order within the arrray as they have in the transaction, so the first input listed will be input 0"
+   "→ → Input", "object", "Required (1 or more)", "An object describing one of the transaction's inputs either regular or coinbase"
+   "→ → → ``txid``", "string", "Optional (0 or 1)", "The TXID of the outpoint being spent, encoded as hex in RPC byte order. Not present if this is a coinbase transaction"
+   "→ → → ``vout``", "number (int)", "Optional (0 or 1)", "The output index number (vout) of the outpoint being spent. The first output in a transaction has an index of `0`. Not present if this is a coinbase transaction"
+   "→ → → ``scriptSig``", "object", "Optional (0 or 1)", "An object describing the signature script of this input. Not if this is a coinbase present transaction"
+   "→ → → → ``asm``", "string", "Required (exactly 1)", "The signature script in decoded form with non-data-pushing opcodes listed"
+   "→ → → → ``hex``", "string (hex)", "Required (exactly 1)", "The signature script encoded as hex"
+   "→ → → ``sequence``", "number (int)", "Required (exactly 1)", "The input sequence number"
+   "→ ``vout``", "array", "Required (exactly 1)", "An array of objects each describing an output vector (vout) for this transaction. Output objects will have the same order within the array as they have in the transaction, so the first output listed will be output 0"
+   "→ → Output", "array", "Required", "An object describing one of this transaction's outputs"
+   "→ → → ``value``", "number (zcash)", "Required (exactly 1)", "The number of ZEC paid to this output.  May be ``0``"
+   "→ → → ``n``", "number (int)", "Required (exactly 1)", "The output index number of this output within this transaction"
+   "→ → → ``scriptPubKey``", "object", "Required (exactly 1)", "An object describing the pubkey script"
+   "→ → → → ``asm``", "string", "Required (exactly 1)", "The pubkey script in decoded form with non-data-pushing opcodes listed"
+   "→ → → → ``hex``", "string (hex)", "Required (exactly 1)", "The pubkey script encoded as hex"
+   "→ → → → ``regSigs``", "number (int)", "Optional (0 or 1)", "The number of signatures required; this is always `1` for P2PK, P2PKH, and P2SH (including P2SH multisig because the redeem script is not available in the pubkey script). It may be greater than 1 for bare multisig. This value will not be returned for `nulldata` or ``nonstandard`` script types (see the ``type`` key below)"
+   "→ → → → ``type``", "string", "Optional (0 or 1)", "The type of script. This will be one of the following:
+   - ``pubkey`` for a P2PK script
+   - ``pubkeyhash`` for a P2PKH script
+   - ``scripthash`` for a P2SH script
+   - ``multisig`` for a bare multisig script
+   - ``nulldata`` for nulldata scripts
+   - ``nonstandard`` for unknown scripts"
+   "→ → → → ``addresses``", "string array", "Optional (0 or 1)", "The P2PKH or P2SH addresses used in this transaction, or the computed P2PKH address of any pubkeys in this transaction.  This array will not be returned for `nulldata` or `nonstandard` script types"
+   "→ → → → → ``Address``", "string", "Required (1 or more)", "A P2PKH or P2SH address"
+   "→ ``vjoinsplit``", "array", "Only for version >= 2", "An array of objects each describing a JoinSplit"
 *Example*
 
 Decode a signed one-input, three-output transaction: ::
@@ -505,52 +398,31 @@ Result: ::
 DecodeScript
 ++++++++++++
 
-The `decodescript` RPC |summary_decodeScript|
+The ``decodescript`` RPC |summary_decodeScript|
 
 .. |summary_decodeScript| replace:: decodes a hex-encoded P2SH redeem script.
 
 *Parameter #1---a hex-encoded redeem script*
+.. csv-table::
+   :header: |n|, |t|, |p|, |d|
 
-+----------------+--------------+-------------+----------------------------------------------------------------------+
-| |n|            | |t|          | |p|         | |d|                                                                  |
-+================+==============+=============+======================================================================+
-| Redeem Script  | string (hex) | Required    | The redeem script to decode as a hex-encoded serialized script       |
-|                |              | (exactly 1) |                                                                      |
-+----------------+--------------+-------------+----------------------------------------------------------------------+
+   "Redeem Script", "string (hex)", "Required" (exactly 1)", "The redeem script to decode as a hex-encoded serialized script"
 
 *Result---the decoded script*
+.. csv-table::
+   :header: |n|, |t|, |p|, |d|
 
-+----------------+--------------+-------------+----------------------------------------------------------------------+
-| |n|            | |t|          | |p|         | |d|                                                                  |
-+================+==============+=============+======================================================================+
-| `result`       | object       | Required    | An object describing the decoded script, or JSON `null` if the       |
-|                |              | (exactly 1) | script could not be decoded                                          |
-+----------------+--------------+-------------+----------------------------------------------------------------------+
-| →              | string       | Required    | The redeem script in decoded form with non-data-pushing opcodes      |
-| `asm`          |              | (exactly 1) | listed.  May be empty                                                |
-+----------------+--------------+-------------+----------------------------------------------------------------------+
-| →              | string       | Optional    | The type of script.  This will be one of the following:              |
-| `type`         |              | (0 or 1)    |                                                                      |
-|                |              |             | - `pubkey` for a P2PK script inside P2SH                             |
-|                |              |             | - `pubkeyhash` for a P2PKH script inside P2SH                        |
-|                |              |             | - `multisig` for a multisig script inside P2SH                       |
-|                |              |             | - `nonstandard` for unknown scripts                                  |
-+----------------+--------------+-------------+----------------------------------------------------------------------+
-| →              | number (int) | Optional    | The number of signatures required; this is always `1` for P2PK or    |
-| `regSigs`      |              | (0 or 1)    | P2PKH within P2SH.  It may be greater than 1 for P2SH multisig. This |
-|                |              |             | value will not be returned for `nonstandard` script types (see the   |
-|                |              |             | `type` key above)                                                    |
-+----------------+--------------+-------------+----------------------------------------------------------------------+
-| →              | array        | Optional    | A P2PKH addresses used in this script, or the computed P2PKH         |
-| `addresses`    |              | (0 or 1)    | addresses of any pubkeys in this script.  This array will not be     |
-|                |              |             | returned for `nonstandard` script types                              |
-+----------------+--------------+-------------+----------------------------------------------------------------------+
-| → →            | string       | Required    | A P2PKH address                                                      |
-| Address        |              | (1 or more) |                                                                      |
-+----------------+--------------+-------------+----------------------------------------------------------------------+
-| →              | string (hex) | Required    | The P2SH address of this redeem script                               |
-| `p2sh`         |              | (exactly 1) |                                                                      |
-+----------------+--------------+-------------+----------------------------------------------------------------------+
+   "``result``", "object", "Required (exactly 1)", "An object describing the decoded script, or JSON ``null`` if the script could not be decoded"
+   "→ ``asm``", "string", "Required (exactly 1)", "The redeem script in decoded form with non-data-pushing opcodes listed.  May be empty"
+   "→ ``type``", "string", "Optional (0 or 1)", "The type of script.  This will be one of the following:
+   - ``pubkey`` for a P2PK script inside P2SH
+   - ``pubkeyhash`` for a P2PKH script inside P2SH
+   - ``multisig`` for a multisig script inside P2SH
+   - ``nonstandard`` for unknown scripts"
+   "→ ``regSigs``", "number (int)", "Optional (0 or 1)", "The number of signatures required; this is always ``1`` for P2PK or P2PKH within P2SH.  It may be greater than 1 for P2SH multisig. This value will not be returned for ``nonstandard`` script types (see the ``type`` key above)"
+   "→ ``addresses``", "array", "Optional (0 or 1)", "A P2PKH addresses used in this script, or the computed P2PKH addresses of any pubkeys in this script.  This array will not be returned for ``nonstandard`` script types"
+   "→ → Address", "string", "Required (1 or more)", "A P2PKH address"
+   "→ ``p2sh``", "string (hex)", "Required (exactly 1)", "The P2SH address of this redeem script"
 
 *Example*
 
@@ -579,29 +451,23 @@ Result: ::
 
 DumpPrivKey
 +++++++++++
-*Requires wallet support. Requires an unlocked wallet or an unencrypted wallet.*
+*Requires wallet support.*
 
-The `dumpprivkey` RPC {{summary_dumpPrivKey}}
+The ``dumpprivkey`` RPC {{summary_dumpPrivKey}}
 
 .. |summary_dumpPrivKey| replace:: returns the wallet-import-format (WIP) private key corresponding to a transparent address. (But does not remove it from the wallet.)
 
 *Parameter #1---the address corresponding to the private key to get*
+.. csv-table::
+   :header: |n|, |t|, |p|, |d|
 
-+---------+-----------------+-------------+--------------------------------------------------------------------------+
-| |n|     | |t|             | |p|         | |d|                                                                      |
-+=========+=================+=============+==========================================================================+
-| P2PKH   | string (base58) | Required    | The P2PKH address corresponding to the private key you want returned.    |
-| Address |                 | (exactly 1) | Must be the address corresponding to a private key in this wallet        |
-+---------+-----------------+-------------+--------------------------------------------------------------------------+
+   "P2PKH Address", "string (base58)", "Required (exactly 1)", "The P2PKH address corresponding to the private key you want returned. Must be the address corresponding to a private key in this wallet"
 
 *Result---the private key*
+.. csv-table::
+   :header: |n|, |t|, |p|, |d|
 
-+----------+-----------------+-------------+-------------------------------------------------------------------------+
-| |n|      | |t|             | |p|         | |d|                                                                     |
-+==========+=================+=============+=========================================================================+
-| `result` | string (base58) | Required    | The private key encoded as base58check using wallet import format       |
-|          |                 | (exactly 1) |                                                                         |
-+----------+-----------------+-------------+-------------------------------------------------------------------------+
+   "``result``", "string (base58)", "Required (exactly 1)", "The private key encoded as base58check using wallet import format"
 
 *Example*
 ::
@@ -619,30 +485,23 @@ Result: ::
 
 DumpWallet
 ++++++++++
-*Requires wallet support.  Requires an unlocked wallet or an unencrypted wallet.*
+*Requires wallet support.*
 
-The `dumpwallet` RPC {{summary_dumpWallet}}
+The ``dumpwallet`` RPC {{summary_dumpWallet}}
 
 .. |summary_dumpWallet| replace:: creates or overwrites a file with all of the wallet's transparent keys in a human-readable format to the specified alphanumeric filename only after setting ``-exportdir=``.
 
 *Parameter #1---a filename*
+.. csv-table::
+   :header: |n|, |t|, |p|, |d|
 
-+----------+----------------+-------------+--------------------------------------------------------------------------+
-| |n|      | |t|            | |p|         | |d|                                                                      |
-+==========+================+=============+==========================================================================+
-| Filename | string         | Required    | A filename to be created or overwritten within the directory specified   |
-|          | (alphanumeric) | (exactly 1) | in ``-exportdir=``.                                                      |
-+----------+----------------+-------------+--------------------------------------------------------------------------+
+   "Filename", "string (alphanumeric", "Required (exactly 1)", "A filename to be created or overwritten within the directory specified in ``-exportdir=``"
 
 *Result---the full path of the destination file*
+.. csv-table::
+   :header: |n|, |t|, |p|, |d|
 
-+----------+----------------------+-------------+--------------------------------------------------------------------+
-| |n|      | |t|                  | |p|         | |d|                                                                |
-+==========+======================+=============+====================================================================+
-| `result` | string (full path    | Required    | Returns full path of destination file or error message. The        |
-|          | of destination file) | (exactly 1) | JSON-RPC error and message fields will be set if a failure         |
-|          |                      |             | occurred                                                           |
-+----------+----------------------+-------------+--------------------------------------------------------------------+
+   "``result``", "string (full path of destination file)", "Required (exactly 1)", "Returns full path of destination file or error message. The JSON-RPC error and message fields will be set if a failure occurred"
 
 *Example*
 
@@ -666,36 +525,29 @@ EncryptWallet
 EstimateFee
 +++++++++++
 
-The `estimatefee` RPC |summary_estimateFee|
+The ``estimatefee`` RPC |summary_estimateFee|
 
 .. |summary_estimateFee| replace:: estimates the transaction fee per kilobyte that needs to be paid for a transaction to be included within a certain number of blocks.
 
 *Parameter #1---how many blocks the transaction may wait before being included*
+.. csv-table::
+   :header: |n|, |t|, |p|, |d|
 
-+----------+--------------+-------------+----------------------------------------------------------------------------+
-| |n|      | |t|          | |p|         | |d|                                                                        |
-+==========+==============+=============+============================================================================+
-| Blocks   | number (int) | Required    | The maximum number of blocks a transaction should have to wait before it   |
-|          |              | (exactly 1) | is predicted to be included in a block                                     |
-+----------+--------------+-------------+----------------------------------------------------------------------------+
+   "Blocks", "number (int)", "Required (exactly 1)", "The maximum number of blocks a transaction should have to wait before it is predicted to be included in a block"
 
 *Result---the fee the transaction needs to pay per kilobyte*
+.. csv-table::
+   :header: |n|, |t|, |p|, |d|
 
-+----------+--------------+-------------+----------------------------------------------------------------------------+
-| |n|      | |t|          | |p|         | |d|                                                                        |
-+==========+==============+=============+============================================================================+
-| `result` | number (ZEC) | Required    | The estimated fee the transaction should pay in order to be included       |
-|          |              | (exactly 1) |  within the specified number of blocks.  If the node doesn't have enough   |
-|          |              |             | information to make an estimate, the value `-1` will be returned           |
-+----------+--------------+-------------+----------------------------------------------------------------------------+
+   "``result``", "number (zcash)", "Required (exactly 1)", "The estimated fee the transaction should pay in order to be included within the specified number of blocks.  If the node doesn't have enough information to make an estimate, the value `-1` will be returned"
 
 *Examples*
 ::
-  zcash-cli estimatefee 3
+  zcash-cli estimatefee 2
 
 Result:
 
-  0.00005000
+  0.00002491
 
 Requesting data the node can't calculate yet: ::
 
@@ -712,30 +564,23 @@ Result: ::
 
 EstimatePriority
 ++++++++++++++++
-The `estimatepriority` RPC {{summary_estimatePriority}}
+The ``estimatepriority`` RPC {{summary_estimatePriority}}
 
 .. |summary_estimatePriority| replace:: estimates the priority that a transaction needs in order to be included within a certain number of blocks as a free high-priority transaction.
 
 Transaction priority is relative to a transaction's byte size.
 
 *Parameter #1---how many blocks the transaction may wait before being included as a free high-priority transaction*
+.. csv-table::
+   :header: |n|, |t|, |p|, |d|
 
-+----------+--------------+-------------+----------------------------------------------------------------------------+
-| |n|      | |t|          | |p|         | |d|                                                                        |
-+==========+==============+=============+============================================================================+
-| Blocks   | number (int) | Required    | The maximum number of blocks a transaction should have to wait before it   |
-|          |              | (exactly 1) | is predicted to be included in a block based purely on its priority        |
-+----------+--------------+-------------+----------------------------------------------------------------------------+
+   "Blocks", "number (int)", "Required (exactly 1)", "The maximum number of blocks a transaction should have to wait before it is predicted to be included in a block based purely on its priority"
 
 *Result---the priority a transaction needs*
+.. csv-table::
+   :header: |n|, |t|, |p|, |d|
 
-+----------+--------+-------------+----------------------------------------------------------------------------------+
-| |n|      | |t|    | |p|         | |d|                                                                              |
-+==========+========+=============+==================================================================================+
-| `result` | number | Required    | The estimated priority the transaction should have in order to be included       |
-|          | (real) | (exactly 1) |  within the specified number of blocks.  If the node doesn't have enough         |
-|          |        |             | information to make an estimate, the value `-1` will be returned                 |
-+----------+--------+-------------+----------------------------------------------------------------------------------+
+   "``result``", "number (real)", "Required (exactly 1)", "The estimated priority the transaction should have in order to be included within the specified number of blocks.  If the node doesn't have enough information to make an estimate, the value `-1` will be returned"
 
 *Examples*
 ::
@@ -756,95 +601,6 @@ Result: ::
 *See also*
 
 .. `EstimateFee`_: |summary_estimateFee|
-
-
-.. table::
-
-  +----------------+--------------+-------------+--------------------------------------------------------------------+
-  | →              | string (hex) | Required    | The transaction's TXID encoded as hex in RPC byte order            |
-  | `txid`         |              | (exactly 1) |                                                                    |
-  +----------------+--------------+-------------+--------------------------------------------------------------------+
-  | →              | number (int) | Required    | The transaction format version number                              |
-  | `version`      |              | (1 or more) |                                                                    |
-  +----------------+--------------+-------------+--------------------------------------------------------------------+
-  | →              | number (int) | Required    | The transaction's locktime: either a Unix epoch date or block      |
-  | `locktime`     |              | (exactly 1) | height; see the `Locktime parsing rules`_                          |
-  +----------------+--------------+-------------+--------------------------------------------------------------------+
-  | →              | array        | Required    | An array of objects with each object being an input vector (vin)   |
-  | `vin`          |              | (exactly 1) | for this transaction.  Input objects will have the same order      |
-  |                |              |             | within the array as they have in the transaction, so the first     |
-  |                |              |             | input listed will be input 0                                       |
-  +----------------+--------------+-------------+--------------------------------------------------------------------+
-  | → →            | object       | Required    | An object describing one of this transaction's inputs.  May be a   |
-  | Input          |              | (1 or more) | regular input or a coinbase                                        |
-  +----------------+--------------+-------------+--------------------------------------------------------------------+
-  | → → →          | string       | Optional    | The TXID of the outpoint being spent, encoded as hex in RPC byte   |
-  | `txid`         |              | (0 or 1)    | order.  Not present if this is a coinbase transaction              |
-  +----------------+--------------+-------------+--------------------------------------------------------------------+
-  | → → →          | number (int) | Optional    | The output index number (vout) of the outpoint being spent.  The   |
-  | `vout`         |              | (0 or 1)    | first output in a transaction has an index of `0`.  Not present if |
-  |                |              |             | this is a coinbase transaction                                     |
-  +----------------+--------------+-------------+--------------------------------------------------------------------+
-  | → → →          | object       | Optional    | An object describing the signature script of this input.  Not  if  |
-  | `scriptSig`    |              | (0 or 1)    | this is a coinbase present transaction                             |
-  +----------------+--------------+-------------+--------------------------------------------------------------------+
-  | → → → →        | string       | Required    | The signature script in decoded form with non-data-pushing opcodes |
-  | `asm`          |              | (exactly 1) | listed                                                             |
-  +----------------+--------------+-------------+--------------------------------------------------------------------+
-  | → → → →        | string (hex) | Required    | The signature script encoded as hex                                |
-  | `hex`          |              | (exactly 1) |                                                                    |
-  +----------------+--------------+-------------+--------------------------------------------------------------------+
-  | → → →          | string (hex) | Optional    | The coinbase (similar to the hex field of a scriptSig) encoded as  |
-  | `coinbase`     |              | (0 or 1)    | hex. Only present if this is a coinbase transaction                |
-  +----------------+--------------+-------------+--------------------------------------------------------------------+
-  | → → →          | number (int) | Required    | The input sequence number                                          |
-  | `sequence`     |              | (exactly 1) |                                                                    |
-  +----------------+--------------+-------------+--------------------------------------------------------------------+
-  | →              | array        | Required    | An array of objects each describing an output vector (vout) for    |
-  | `vout`         |              | (exactly 1) | this transaction. Output objects will have the same order within   |
-  |                |              |             | the array as they have in the transaction, so the first output     |
-  |                |              |             | listed will be output 0                                            |
-  +----------------+--------------+-------------+--------------------------------------------------------------------+
-  | → →            | object       | Required    | An object describing one of this transaction's outputs             |
-  | Output         |              | (1 or more) |                                                                    |
-  +----------------+--------------+-------------+--------------------------------------------------------------------+
-  | → → →          | number (ZEC) | Required    | The number of ZEC paid to this output.  May be `0`                 |
-  | `value`        |              | (exactly 1) |                                                                    |
-  +----------------+--------------+-------------+--------------------------------------------------------------------+
-  | → → →          | number (int) | Required    | The output index number of this output within this transaction     |
-  | `n`            |              | (exactly 1) |                                                                    |
-  +----------------+--------------+-------------+--------------------------------------------------------------------+
-  | → → →          | object       | Required    | An object describing the pubkey script                             |
-  | `scriptPubKey` |              | (exactly 1) |                                                                    |
-  +----------------+--------------+-------------+--------------------------------------------------------------------+
-  | → → → →        | string       | Required    | The pubkey script in decoded form with non-data-pushing opcodes    |
-  | `asm`          |              | (exactly 1) | listed                                                             |
-  +----------------+--------------+-------------+--------------------------------------------------------------------+
-  | → → → →        | string (hex) | Required    | The pubkey script encoded as hex                                   |
-  | `hex`          |              | (exactly 1) |                                                                    |
-  +----------------+--------------+-------------+--------------------------------------------------------------------+
-  | → → → →        | number (int) | Optional    | The number of signatures required; this is always `1` for P2PK,    |
-  | `regSigs`      |              | (0 or 1)    | P2PKH, and P2SH (including P2SH multisig because the redeem script |
-  |                |              |             | is not available in the pubkey script).  It may be greater than 1  |
-  |                |              |             | for bare multisig.  This value will not be returned for `nulldata` |
-  |                |              |             | or `nonstandard` script types (see the `type` key below)           |
-  +----------------+--------------+-------------+--------------------------------------------------------------------+
-  | → → → →        | string       | Optional    | The type of script.  This will be one of the following:            |
-  | `type`         |              | (0 or 1)    | - `pubkey` for a P2PK script                                       |
-  |                |              |             | - `pubkeyhash` for a P2PKH script                                  |
-  |                |              |             | - `scripthash` for a P2SH script                                   |
-  |                |              |             | - `multisig` for a bare multisig script                            |
-  |                |              |             | - `nulldata` for nulldata scripts                                  |
-  |                |              |             | - `nonstandard` for unknown scripts                                |
-  +----------------+--------------+-------------+--------------------------------------------------------------------+
-  | → → → →        | string:      | Optional    | The P2PKH or P2SH addresses used in this transaction, or the       |
-  | `addresses`    | array        | (0 or 1)    | computed P2PKH address of any pubkeys in this transaction.  This   |
-  |                |              |             | array will not be returned for `nulldata` or `nonstandard` script  |
-  |                |              |             | types                                                              |
-  +----------------+--------------+-------------+--------------------------------------------------------------------+
-  | → → → → →      | string:      | Required    | A P2PKH or P2SH address                                            |
-  | `Address`      |              | (1 or more) |                                                                    |
-  +----------------+--------------+-------------+--------------------------------------------------------------------+
 
 
 
