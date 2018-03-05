@@ -326,6 +326,7 @@ The ``decoderawtransaction`` RPC |summary_decodeRawTransaction|
    "→ → → → ``addresses``", "string array", "Optional (0 or 1)", "The P2PKH or P2SH addresses used in this transaction, or the computed P2PKH address of any pubkeys in this transaction.  This array will not be returned for `nulldata` or `nonstandard` script types"
    "→ → → → → ``Address``", "string", "Required (1 or more)", "A P2PKH or P2SH address"
    "→ ``vjoinsplit``", "array", "Only for version >= 2", "An array of objects each describing a JoinSplit"
+
 *Example*
 
 Decode a signed one-input, three-output transaction: ::
@@ -470,6 +471,7 @@ The ``dumpprivkey`` RPC {{summary_dumpPrivKey}}
    "P2PKH Address", "string (base58)", "Required (exactly 1)", "The P2PKH address corresponding to the private key you want returned. Must be the address corresponding to a private key in this wallet"
 
 *Result---the private key*
+
 .. csv-table::
    :header: |n|, |t|, |p|, |d|
 
@@ -505,6 +507,7 @@ The ``dumpwallet`` RPC {{summary_dumpWallet}}
    "Filename", "string (alphanumeric", "Required (exactly 1)", "A filename to be created or overwritten within the directory specified in ``-exportdir=``"
 
 *Result---the full path of the destination file*
+
 .. csv-table::
    :header: |n|, |t|, |p|, |d|
 
